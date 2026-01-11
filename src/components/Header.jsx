@@ -23,9 +23,9 @@ function Header() {
     <>
       {/* HEADER */}
       <header className="bg-amazon_blue text-white sticky top-0 z-50">
-        <div className="flex items-center px-3 py-2 gap-2">
+        <div className="flex items-center px-3 py-2 gap-3">
 
-          {/* Logo */}
+          {/* LOGO */}
           <img
             src={Amazonelogo}
             alt="Amazon"
@@ -33,29 +33,41 @@ function Header() {
             onClick={() => navigate("/")}
           />
 
-          {/* Search Bar */}
-          <div className="flex flex-grow items-center bg-yellow-400 rounded-md">
+          {/* SEARCH */}
+          <div className="flex flex-1 bg-yellow-400 rounded-md overflow-hidden">
             <input
               type="text"
               placeholder="Search Maheen Store..."
-              className="flex-grow p-2 text-black outline-none rounded-l-md text-sm"
+              className="flex-grow px-3 py-2 text-black outline-none text-sm"
             />
-            <button className="p-2 text-black">
+            <button className="px-3 text-black">
               <SearchIcon />
             </button>
           </div>
 
-          {/* Cart */}
+          {/* DESKTOP MENU (SAME ROW) */}
+          <div className="hidden md:flex items-center gap-6 text-sm whitespace-nowrap">
+            <div onClick={handleAuthentication} className="cursor-pointer">
+              <p>Hello, {user ? user.email.split("@")[0] : "Guest"}</p>
+              <p className="font-bold">{user ? "Sign Out" : "Sign In"}</p>
+            </div>
+
+            <p className="cursor-pointer">Accounts & Lists</p>
+            <p className="cursor-pointer">Returns & Orders</p>
+            <p className="cursor-pointer font-bold">Prime</p>
+          </div>
+
+          {/* CART */}
           <div
             onClick={() => navigate("/checkout")}
-            className="flex items-center cursor-pointer"
+            className="cursor-pointer"
           >
             <Badge badgeContent={basket?.length || 0} color="error">
               <ShoppingCartIcon />
             </Badge>
           </div>
 
-          {/* Menu Button (Mobile) */}
+          {/* HAMBURGER (MOBILE ONLY) */}
           <button
             className="md:hidden"
             onClick={() => setOpen(true)}
@@ -63,20 +75,9 @@ function Header() {
             <MenuIcon />
           </button>
         </div>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex justify-end gap-6 px-6 pb-2 text-sm">
-          <div onClick={handleAuthentication} className="cursor-pointer">
-            <p>Hello, {user ? user.email.split("@")[0] : "Guest"}</p>
-            <p className="font-bold">{user ? "Sign Out" : "Sign In"}</p>
-          </div>
-          <p className="cursor-pointer">Accounts & Lists</p>
-          <p className="cursor-pointer">Returns & Orders</p>
-          <p className="cursor-pointer font-bold">Prime</p>
-        </div>
       </header>
 
-      {/* SIDEBAR (Mobile) */}
+      {/* MOBILE SIDEBAR */}
       {open && (
         <div className="fixed inset-0 z-50 bg-black/50">
           <div className="bg-white text-black w-64 h-full p-4">
@@ -98,7 +99,7 @@ function Header() {
 
             <p className="mb-3 cursor-pointer">Accounts & Lists</p>
             <p className="mb-3 cursor-pointer">Returns & Orders</p>
-            <p className="mb-3 cursor-pointer">Prime</p>
+            <p className="mb-3 cursor-pointer font-bold">Prime</p>
           </div>
         </div>
       )}
